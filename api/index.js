@@ -78,6 +78,7 @@ app.post("/api/login", (req,res)=>{
 
 // creating a middleware to verify the token
 const verify=(req,res,next)=>{
+    console.log("Verifying...")
     const authHeader=req.headers.authorization;
     if(authHeader){
         const token=authHeader.split(" ")[1];
@@ -95,6 +96,7 @@ const verify=(req,res,next)=>{
 
     }
     else {
+        console.log("you are not authorized")
         res.status(403).json("you are not authorized")
     }
 }
@@ -143,6 +145,7 @@ app.delete("/api/users/:userId",verify,(req,res)=>{
 //logout
 app.post("/api/logout",verify,(req, res)=>{
 
+    console.log("Bhai log m toh aa gye hain hmlog")
     const refreshToken=req.body.token 
     refreshTokens=refreshTokens.filter(token=>token!== refreshToken)
     res.status(200).json("you logged out successfully")
