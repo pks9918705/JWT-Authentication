@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 
 function App() {
+  
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +16,7 @@ function App() {
     const userAvailable = localStorage.getItem("token");
     if (userAvailable) {
       const decodedToken = jwt_decode(userAvailable);
+      console.log("decoded token: ", decodedToken);
       const currentTime = Date.now() / 1000;
 
       if (decodedToken.exp > currentTime) {
@@ -69,7 +71,7 @@ function App() {
       setUser(res.data);
       localStorage.setItem("token", res.data.accessToken);
     } catch (err) {
-      console.log(err);
+      console.log("Failed on Client side",err);
     }
   };
 
@@ -140,7 +142,7 @@ function App() {
       ) : (
         <div className="login">
           <form onSubmit={handleSubmit}>
-            <span className="formTitle">Lama Login</span>
+            <span className="formTitle">Login</span>
             <input
               type="text"
               placeholder="username"
